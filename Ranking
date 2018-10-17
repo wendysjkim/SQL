@@ -1,0 +1,9 @@
+#SQL query to rank scores
+
+SELECT a.score, b.rank
+FROM scores as a, 
+     (select score_rk, @rank := @rank +1 as rank 
+      from(select distinct score as score_rk from scores order by score_rk desc) tmp1,
+          (select @rank := 0) tmp2) as b 
+WHERE a.score = b.score_rk
+ORDER BY Score desc;
