@@ -1,0 +1,13 @@
+# find all numbers that appear at least three times consecutively.
+
+SELECT DISTINCT final.Num1 as ConsecutiveNums
+FROM (SELECT a1.Num as Num1, 
+             a2.Num as Num2, 
+             a3.Num as Num3
+      FROM table as a1, 
+           table as a2, 
+           table as a3
+      WHERE a1.id = a2.id + 1 and a2.id = a3.id + 1) as final
+
+WHERE final.Num1 = final.Num2 
+and final.Num2 = final.Num3;
