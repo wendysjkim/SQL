@@ -1,0 +1,10 @@
+# Identify highest salary within each department
+
+SELECT d.name as Department, e.name as employee, e.salary
+FROM (SELECT max(salary) as salary, departmentid
+        FROM employee
+        GROUP BY departmentid) as max
+INNER JOIN department as d
+ON max.departmentid = d.id
+INNER JOIN employee as e
+ON max.salary = e.salary and max.departmentid = e.departmentid;
