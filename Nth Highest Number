@@ -1,0 +1,20 @@
+# Find nth highest salary
+
+CREATE FUNCTION getNthHighestSalary(N INT) RETURNS INT
+BEGIN
+  RETURN (
+      SELECT 
+        CASE WHEN count(e.id) < N THEN NULL
+        WHEN count(distinct e.salary) < N THEN NULL
+        ELSE final.salary 
+        END as getNthHighestsalary
+      FROM employee as e,
+      (SELECT tmp.salary   
+        FROM (SELECT distinct salary
+            FROM employee
+            ORDER BY salary desc
+            LIMIT N) as tmp
+        ORDER BY tmp.salary
+        LIMIT 1) as final
+  );
+END
