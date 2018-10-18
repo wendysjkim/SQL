@@ -1,5 +1,6 @@
 # Find greatest 3 salaries per department
 
+# v1 - shorter runtime
 SELECT d.name as Department, e2.name as Employee, e2.Salary
 FROM employee as e2
     JOIN department as d
@@ -11,4 +12,15 @@ WHERE (e2.salary, e2.departmentid) in
         select count(distinct tmp.salary) from employee as tmp
         where e.departmentid = tmp.departmentid
         and e.salary <= tmp.salary) <= 3)
+ORDER BY d.name, e2.Salary desc;
+
+# v2
+SELECT d.name as Department, e2.name as Employee, e2.Salary
+FROM employee as e2
+    JOIN department as d
+    ON d.id = e2.departmentid
+WHERE 
+    select count(distinct tmp.salary) from employee as tmp
+    where e.departmentid = tmp.departmentid
+    and e.salary <= tmp.salary) <= 3
 ORDER BY d.name, e2.Salary desc;
