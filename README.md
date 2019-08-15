@@ -1,3 +1,3 @@
 # SQL
 
-Various sql queries for references.
+Various SQL queries for references.
